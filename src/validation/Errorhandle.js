@@ -8,17 +8,36 @@ const email = (v)=>{
  
  }
  const required =(v)=>{
-    console.log(v)
+   
     if(v.length === 0){
+       
         console.log("length not equal to zero")
         console.log(v)
 
         return "Requried";
-        
+      
     }
+    else if(v[0]== ""){
+        console.log("v given" , v)
+        return "REdooo"
+       } 
     return null
  }
-  
+  const is_errorCheck =(v)=>{
+    if (v[0] == " ") {
+        return "Enter correct Value"
+    }
+  }
+
+  const spaceRegex =(v)=>{
+    const regexPattern = /^\s*\w+(\s?$|\s{2,}\w+)+/
+    console.log(regexPattern.test())
+    if( regexPattern.test(v)){
+        // console.log("PAttern Check works")
+        return "InValid Password"
+    }
+    return null
+  }
  const  ValidateData ={
  
     email : (v)=>{
@@ -32,6 +51,14 @@ const email = (v)=>{
                 message: emailValidate,
                 required: requiredError,
             };
+        },
+        emptyCheck : ()=>{
+            const emptyCheckError = is_errorCheck(v);
+            console.log("Empaty Obje",emptyCheckError)
+            return {
+                message: emailValidate,
+                required: emptyCheckError,
+            };  
         }
     }
 
@@ -41,7 +68,17 @@ const email = (v)=>{
         const  fieldValidate = required(v)
         console.log("validate Object")
         console.log(fieldValidate)
-        return fieldValidate
+        return {
+            message: fieldValidate,
+            regex : (v)=>{
+                const regexCheck = spaceRegex(v)
+                console.log("pattern required data") 
+                return {
+                    message : regexCheck,
+                    required :fieldValidate
+                }
+            }
+        }
 
     }
 

@@ -14,8 +14,8 @@
 }
 
 .sub-card {
-  height: 72vh;
-  width: 50rem;
+  height: 89vh;
+  width: 52rem;
   display: flex;
   flex-direction: row;
   border-radius: 20px;
@@ -25,20 +25,21 @@
   box-shadow: 10px 10px 20px black;
 }
 .image-div {
-  height: 24rem;
+  height: 31rem;
   margin-top: 15px;
   margin-left: 15px;
   width: 25rem;
 }
 .bg-img {
-  height: 24rem;
+  height: 31rem;
   width: 25rem;
   border-radius: 5px;
 }
 .login-div {
   display: flex;
-  width: 25rem;
-  height: 24rem;
+  width: 28rem;
+  height: 31rem;
+  font-size: larger;
   flex-direction: column;
   margin-top: 2rem;
   margin-left: 0px;
@@ -48,16 +49,24 @@
   justify-content: center;
 }
 .input-style {
-  margin-top: 5px;
+  margin-top: 5px !important;
   height: 2rem;
-  width: 18rem;
+  width: 17rem;
+  outline: none !important;
+  padding-left: 12px;
+border-top: none ;
+border-left: none;
+border-right: none;
   align-self: center;
-  border: 1px solid black;
-  border-radius: 5px;
+  /* background-color: gray;
+  border-radius: 5px; */
 }
+
+
 .input-text {
-  align-self: center;
-  margin-top: 5px;
+  /* align-self: center; */
+  margin-top: 10px !important;
+margin-right:220px;
   font-family: "Poppins", sans-serif;
 }
 .password-div {
@@ -72,7 +81,7 @@
 }
 .login-btn {
   background-color: rgba(0, 102, 255, 1);
-  margin-top: 0.5rem;
+  margin-top: 2rem !important;
   padding: 8px 0px 8px 0px;
   width: 280px;
   font-size: large;
@@ -87,12 +96,42 @@
   /* transition: transform 1s;
     transform: scaleX(1.5) ; */
 }
+
+
+.or-text-div{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+
+}
+.line-text-left{
+  margin-left: 2px;
+  width: 7rem;
+  margin-right: 2px;
+padding-top: 7px;
+  
+  /* padding: 0px 15px 0px 15px; */
+}
+.login-text{
+  font-size: 22px;
+  font-family: "Poppins", sans-serif !important;
+}
+.hr-line{
+  color: black !important;
+}
+.line-text-right{
+  width: 7rem;
+  margin-left: 2px;
+padding-top: 7px;
+  
+  /* padding: 0px 15px 0px 15px; */
+}
 .google-btn-div {
   display: flex;
   flex-direction: row;
   border-radius: 5px;
+  margin-top: 10px;
 
-  background-color: red;
   align-items: center !important;
 }
 .google-btn {
@@ -146,6 +185,7 @@
   border: none;
   background: none;
   width: 10rem;
+  margin-top: 2rem;
   cursor: pointer;
 
   border-radius: 10px;
@@ -165,13 +205,16 @@ span {
 @media screen and (min-width: 320px) and (max-width: 480px) {
 
 .main-div{
-  width: auto;
-  height: auto;
+  width: 200vw;
+  height: 200vh;
 }
 .sub-card{
   height: 100%;
-  width: 80vw;
+  width: 200vw;
   box-shadow: 10px 10px 20px green;
+}
+.image-div{
+  display: none;
 }
 
 }
