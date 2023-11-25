@@ -52,7 +52,7 @@
   margin-top: 5px !important;
   height: 2rem;
   width: 17rem;
-  outline: none !important;
+  outline: none ;
   padding-left: 12px;
 border-top: none ;
 border-left: none;
@@ -68,6 +68,11 @@ border-right: none;
   margin-top: 10px !important;
 margin-right:220px;
   font-family: "Poppins", sans-serif;
+}
+.input-text-password{
+  margin-top: 10px !important;
+  margin-right:220px;
+    font-family: "Poppins", sans-serif;
 }
 .password-div {
   align-self: center;
@@ -195,6 +200,7 @@ padding-top: 7px;
 }
 span {
   color: red;
+  font-size: small;
   margin-top: 8px;
 }
 
@@ -202,20 +208,320 @@ span {
 /* media Query Starts Here */
 
 /* <------------Media query for Mobile devices---------> */
-@media screen and (min-width: 320px) and (max-width: 480px) {
+@media screen and (min-width: 320px) and (max-width: 375px) {
 
 .main-div{
-  width: 200vw;
-  height: 200vh;
+  width: 100vw;
+  height: 100vh;
 }
 .sub-card{
-  height: 100%;
-  width: 200vw;
-  box-shadow: 10px 10px 20px green;
+  height: 98%;
+  width: auto;
+  /* background-color: blueviolet; */
+  box-shadow: 10px 10px 20px black;
 }
 .image-div{
   display: none;
 }
+.login-div{
+ display: flex;
+ height: 19rem;
+ font-size: smaller;
+ width: auto;
+ margin-top: px;
+ flex-direction: column;
+}
+.login-text{
+  font-size: 20px;
+  padding: 2px 0px 0px 0px  !important;
+  margin-top: 2px !important;
+}
+.input-text{
+  margin-left: 10px;
+  margin-top: 5px !important;
+}
+.input-style{
+  margin-top: 5px;
+  width: 15rem;
+  outline: none !important ;
+  border-top: none ;
+border-left: none;
+border-right: none;
+}
+.login-btn{
+  margin-top: 10px !important;
+  width: 235px;
+  padding: 5px 0px 5px 0px !important;
+
+  font-size: medium;
+  letter-spacing: 1px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.or-text-div{
+  display: none !important;
+  /* margin-top: 5px; */
+}
+.google-btn-div{
+  margin-top: 12px;
+}
+.login-text{
+  margin-top: 10px;
+}
+.forgot-btn {
+  border: none;
+  background: none;
+  width: 10rem;
+  margin-top: 1rem !important;
+  cursor: pointer;
+font-size: small !important;
+  border-radius: 10px;
+  font-size: medium;
+  margin: 5px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+.google-btn{
+  width: 230px;
+  padding:7px 7px 7px 1px;
+}
+.continue-google-text{
+  font-size: smaller;
+}
+.or-text-div{
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+
+}
+.or-text{
+  font-size: 12px !important;
+}
+.google-img{
+  height: 1rem;
+  width: 1rem;
+}
+.input-text{
+  margin-right: 200px;
+  
+}
+.input-text-password{
+  margin-right: 180px !important;
+}
+.signup-div {
+  margin-top: 18px;
+  display: flex;
+  padding: 0px 20px 10px 20px;
+  flex-direction: row;
+}
 
 }
 
+@media screen and (min-width: 376px) and (max-width: 425px) {
+.main-div{
+  width: 100vw;
+  height: 100vh;
+}
+.sub-card{
+  width: 85vw;
+  height: 97%;
+}
+.image-div{
+  display: none;
+}
+.login-div{
+  height: 22rem;
+  margin-top: 5px !important;
+}
+.login-text{
+  font-size: 18px;
+  margin-top: 0px;
+}
+.input-text{
+  margin-left: 10px;
+  margin-top: 0px !important;
+}
+.input-style{
+  margin-top: 0px;
+  width: 15rem;
+  outline: none !important ;
+  border-top: none ;
+border-left: none;
+border-right: none;
+}
+.login-btn{
+  margin-top: 10px !important;
+  padding:none !important;
+  width: 235px;
+  font-size: smaller;
+  letter-spacing: 1px;
+  color: white;
+  height: 28px;
+
+  border: none;
+  cursor: pointer;
+}
+.input-text{
+  font-size: small;
+  margin-right: 200px;
+}
+.google-img{
+  height: 1rem;
+  width: 1rem;
+}
+.continue-google-text{
+  font-size: small;
+}
+
+.or-text-div{
+  margin-top: 0px;
+}
+.or-text{
+  font-size: 12px;
+}
+.google-btn-div{
+  margin-top: 5px;
+  
+}
+.login-text{
+  margin-top: 0px;
+}
+.google-btn{
+  width: 230px;
+  padding:5px 1px 5px 1px;
+}
+.f
+.input-text{
+  font-size: small;
+  margin-right: 200px;
+  
+}
+.input-text-password{
+  font-size: small;
+
+  margin-right: 180px !important;
+}
+.forgot-btn {
+  margin-top: 10px !important;
+  padding: 0px 0px 0px 0px;
+  font-size: small;
+
+}
+
+.dont-have-text{
+  font-size: smaller;
+}
+.signup-text{
+  font-size: smaller !important;
+}
+
+}
+@media screen and (min-width: 425px) and (max-width: 768px) 
+{
+.main-div{
+height: 100vh;
+width: 100vw;
+}
+.sub-card{
+height: 94%;
+width: 98%;
+}
+.image-div{
+  height: 24rem;
+  margin-top: 5px;
+  margin-left: 15px;
+  width: 22rem;
+}
+.bg-img {
+  height: 23rem;
+  width: 22rem;
+  border-radius: 5px;
+}
+.login-div{
+  height: 26rem;
+  width: 28rem;
+  font-size: large;
+  margin-top: 0rem;
+}
+.input-text {
+  margin-top: 10px !important;
+margin-right:220px;
+font-size: medium;
+  font-family: "Poppins", sans-serif;
+}
+.input-text-password{
+  margin-top: 10px !important;
+  margin-right:200px;
+  font-size: medium;
+
+    font-family: "Poppins", sans-serif;
+}
+.login-btn{
+  padding: 5px 0px 5px 0px;
+  margin-top: 10px !important;
+  font-size: medium !important;
+  width: 250px;
+}
+.forgot-btn{
+  margin: 10px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+.or-text-div{
+  margin-top: 3px;
+}
+.or-text{
+  font-size: small;
+}
+.google-btn-div{
+  margin-top: 7px;
+
+}
+.google-btn{
+  padding: 4px 2px 4px 2px;
+  width: 250px;
+}
+.google-img{
+  height: 1rem;
+  width: 1rem;
+}
+.dont-have-text{
+  font-size: medium;
+}
+.signup-text{
+}
+.signup-div{
+  margin-top: 10px;
+  padding: 0px 20px 10px 20px;
+}
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px)
+ {
+
+  .main-div{
+height: 100vh;
+width: 100vw;
+  }
+  .sub-card{
+    height: 90%;
+    width: 52rem;
+
+  }
+  .image-div{
+    height: 35rem;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 28rem;
+  }
+  .bg-img{
+
+  }
+  .login-div{
+    
+  }
+
+
+}
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+
+}

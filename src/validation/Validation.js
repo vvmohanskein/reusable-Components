@@ -1,14 +1,54 @@
 import ValidateData from './Errorhandle'
 
-export const handleChange = (e,formData,setFormData)=>{
-    // console.log(e.target.value)
+export const handleChange = (e,formData,setFormData,emailError, setEmailError,passwordError,setPasswordError,callBacks)=>{
     const  { name, value } = e.target;
+    const trimmedValue = value.trim()
+    const errMsg = ValidateData.email(trimmedValue).require();
+    if (errMsg.required) {
+      const edata = errMsg.required;
+      console.log('edata',edata);
+      setEmailError(edata);
+      console.log("errorrr HAndled");
+    } else if (errMsg.message) {
+      const edata = errMsg.message;
+      // setFormError(edata)
+      setEmailError(edata);
+    }else {
+      const edata = null;
+      setEmailError(edata);
+    }
+    // setPasswordError(ValidateData.required ? ValidateData.required :'')
+    
+
+    console.log('errMsg',errMsg);
     setFormData((formData) => ({
       ...formData,
-      [name]: value,
+      [name]: trimmedValue,
     }));
-    // console.log(formData)
+
+ 
+    if(name === "password" || name === "cpassword"){
+      console.log('formdata',formData);
+      
+        ValidateData.cpasswordCheck(formData.password,formData.cpassword)
+        // console.log(formData.password, formData.cpassword)
+        // console.log(formData)
+      
+        // PasswordValidation(formData.password, formData.cpassword)
+      }
 }
+//  export const PasswordValidation =(password, cpassword)=>{
+//   console.log(password,cpassword)
+//   if(password !== cpassword){
+    
+//     console.log( "ERROROROR password did not match")
+//   }
+// else{
+//   console.log("password mathes Success")
+
+// }
+//  }
+
 
  
 

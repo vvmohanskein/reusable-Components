@@ -1,5 +1,5 @@
 const email = (v)=>{
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s$&*!#^@]+@[^\s@]+\.([^\s@]{2,})+$/;
     if(!emailRegex.test(v)){
        console.log("regex working")
        return "Invalid Email";
@@ -27,16 +27,32 @@ const email = (v)=>{
     if (v[0] == " ") {
         return "Enter correct Value"
     }
+    return null
   }
 
   const spaceRegex =(v)=>{
     const regexPattern = /^\s*\w+(\s?$|\s{2,}\w+)+/
     console.log(regexPattern.test())
-    if( regexPattern.test(v)){
-        // console.log("PAttern Check works")
-        return "InValid Password"
-    }
+    // if( !regexPattern.test(v)){
+    //     // console.log("PAttern Check works")
+    //     return "Invalid Password"
+    // }
     return null
+  }
+
+
+
+  const comparePassword = (p,cp) =>{
+    console.log(p,cp);
+    if(p!=='' && (cp!=''&& p == cp)){
+        console.log("password correct")
+        return "password  matches Correctly"
+    }
+    
+    else {
+        return "doesnt matches both"
+    }
+
   }
  const  ValidateData ={
  
@@ -52,14 +68,14 @@ const email = (v)=>{
                 required: requiredError,
             };
         },
-        emptyCheck : ()=>{
-            const emptyCheckError = is_errorCheck(v);
-            console.log("Empaty Obje",emptyCheckError)
-            return {
-                message: emailValidate,
-                required: emptyCheckError,
-            };  
-        }
+        // emptyCheck : ()=>{
+        //     const emptyCheckError = is_errorCheck(v);
+        //     console.log("Empaty Obje",emptyCheckError)
+        //     return {
+        //         message: emailValidate,
+        //         required: emptyCheckError,
+        //     };  
+        // }
     }
 
     },
@@ -80,6 +96,15 @@ const email = (v)=>{
             }
         }
 
+    },
+    cpasswordCheck :(p,cp)=>{
+        console.log(p,cp)
+
+        const validPasssword = comparePassword(p,cp)
+        console.log('validPasssword',validPasssword);
+
+        // console.log(validPasssword, p,cp)
+        return  validPasssword;
     }
 
     

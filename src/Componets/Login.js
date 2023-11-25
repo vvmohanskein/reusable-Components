@@ -2,35 +2,43 @@ import "./login.css";
 import googleimg from "./bgimg1.svg";
 import { useEffect, useState } from "react";
 import bgimg from "./bgimg.jpg";
-import { handleChange, handleSubmit } from "../validation/Validation";
+import { PasswordValidation, handleChange, handleSubmit } from "../validation/Validation";
 import app, { auth, provider } from "../validation/Auth";
 import { signInWithPopup } from "firebase/auth";
 import ValidateData from "../validation/Errorhandle";
 import { useNavigate } from "react-router-dom";
 
-
 export function Login() {
-   const navigate = useNavigate()
+  const navigate = useNavigate();
   const initialState = {
     email: "",
     password: "",
+    cpassword:''
   };
-
 
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(initialState);
   const [emailError, setEmailError] = useState();
   const [passwordError, setPasswordError] = useState();
-
+  const [cpasswordError, setCPasswordError] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const callBacks = (formData, formError, setFormError) => {
-    console.log("Call back Activiated", formError);
+  const callBacks = (
+    formData,
+    emailError,
+    passwordError,
+    formError,
+    setFormError
+  ) => {
+    console.log("Call back Activiated", formData);
   };
-
+  console.log(formData)
   useEffect(() => {
-    console.log("Use Effect Working");
-    console.log(formError);
-  }, [formError]);
+
+    console.log("Use Effect Working",formData.password,formData.cpassword);
+    // ValidateData.cpasswordCheck()
+    // PasswordValidation()
+    // console.log(formError);
+  }, [formData.cpassword,formData.password,ValidateData]);
 
   const handleSubmit = (e) => {
     // e.preventDefault()
@@ -44,27 +52,43 @@ export function Login() {
       const edata = errMsg.message;
       // setFormError(edata)
       setEmailError(edata);
-    }
-  
-    else {
+    } else {
       const edata = null;
       setEmailError(edata);
     }
     const errPassword = ValidateData.required(formData.password).regex();
-    console.log(errPassword)
+    
     if (errPassword.required) {
       const edatas = errPassword.required;
       setPasswordError(edatas);
-    }
-    else if (errPassword.message){
-      const errData = errPassword.message ;
-      setPasswordError(errData)
-    }
-    
-    else {
+    } else if (errPassword.message) {
+      const errData = errPassword.message;
+      setPasswordError(errData);
+    } else {
       const edatas = null;
       setPasswordError(edatas);
     }
+
+    // const errcPassword = ValidateData.required(formData.cpassword).regex();
+    // if (errcPassword.required) {
+    //   const edatas = errcPassword.required;
+    //   setCPasswordError(edatas);
+    // } else if (errcPassword.message) {
+    //   const errData = errcPassword.message;
+    //   setCPasswordError(errData);
+    // } else {
+    //   const edatas = null;
+    //   setCPasswordError(edatas);
+    // }
+
+    const cpasswordCheck = ValidateData.cpasswordCheck(formData.password,formData.cpassword)
+    if(cpasswordCheck){
+      console.log("password works in login",cpasswordCheck)
+    }
+    else {console.log("Passwords works in loginn innnnn correct")}
+
+
+
   };
   const handleGoogleClick = (e) => {
     e.preventDefault();
@@ -84,9 +108,9 @@ export function Login() {
           <img src={bgimg} className="bg-img" />
         </div>
         <div className="login-div">
-          <h3 className="login-text">Welcome Back!</h3>
+          {/* <h3 className="login-text">Welcome Back!</h3> */}
           <h3 className="login-text">Login</h3>
-          <br />
+         
           <p className="input-text">Email Id</p>
           <div className="password-div">
             <input
@@ -94,7 +118,14 @@ export function Login() {
               value={formData.email}
               placeholder="Enter  Mail Id"
               onChange={(e) =>
-                handleChange(e, formData, setFormData, formError)
+                handleChange(
+                  e,
+                  formData,
+                  setFormData,
+                  emailError,
+                  setEmailError,
+                  formError
+                )
               }
               className="input-style"
             />
@@ -116,14 +147,22 @@ export function Login() {
           ) : (
             ""
           )}
-          <p className="input-text"> Password</p>
+          <p className="input-text-password"> Password</p>
           <div className="password-div">
             <input
-             placeholder="Enter  Password"
-             name="password"
+              placeholder="Enter  Password"
+              name="password"
               value={formData.password}
               onChange={(e) =>
-                handleChange(e, formData, setFormData, formError)
+                handleChange(
+                  e,
+                  formData,
+                  setFormData,
+                  emailError,
+                  setEmailError,
+                  passwordError,
+                  setPasswordError
+                )
               }
               type={showPassword ? "text" : "password"}
               className="input-style"
@@ -154,21 +193,51 @@ export function Login() {
           </div>
           {!formData.password && passwordError ? (
             <span>{passwordError}</span>
+          ) : formData.password && passwordError ? (
+            <span>{passwordError}</span>
           ) : (
-            formData.password && passwordError ? (
-              <span>{passwordError}</span> 
-            ):''
-
+            ""
           )}
 
+
+
+{/* <input
+              placeholder="Enter  confirm Password"
+              name="cpassword"
+              value={formData.cpassword}
+              onChange={(e) =>
+                handleChange(
+                  e,
+                  formData,
+                  setFormData,
+                  emailError,
+                  setEmailError,
+                  passwordError,
+                  setPasswordError
+                )
+              }
+              type={showPassword ? "text" : "password"}
+              className="input-style"
+            />
+              {!formData.cpassword && cpasswordError ? (
+            <span>{cpasswordError}</span>
+          ) : formData.cpassword && cpasswordError ? (
+            <span>{cpasswordError}</span>
+          ) : (
+            ""
+          )} */}
           <button onClick={() => handleSubmit()} className="login-btn">
             Login
           </button>
           <button className="forgot-btn">Forgot Password?</button>
-         <div className="or-text-div">
-          <p className="line-text-left"><hr className="hr-line"/></p>
-          <p className="">OR</p>
-          <p className="line-text-right"><hr/></p>
+          <div className="or-text-div">
+            <p className="line-text-left">
+              <hr className="hr-line" />
+            </p>
+            <p className="or-text">OR</p>
+            <p className="line-text-right">
+              <hr />
+            </p>
           </div>
           <div className="google-btn-div">
             <button onClick={handleGoogleClick} className="google-btn">
@@ -203,10 +272,7 @@ export function Login() {
           </div>
           <div className="signup-div">
             <p className="dont-have-text">Don't have an account</p>
-            <button
-               onClick={()=>navigate('/signup')}
-              className="signup-text"
-            >
+            <button onClick={() => navigate("/signup")} className="signup-text">
               Sign Up
             </button>
           </div>
