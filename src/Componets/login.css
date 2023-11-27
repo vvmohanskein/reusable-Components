@@ -25,13 +25,14 @@
   box-shadow: 10px 10px 20px black;
 }
 .image-div {
+  display: block  !important;
   height: 31rem;
   margin-top: 15px;
   margin-left: 15px;
   width: 25rem;
 }
 .bg-img {
-  height: 31rem;
+  height:31rem;
   width: 25rem;
   border-radius: 5px;
 }
@@ -217,7 +218,6 @@ span {
 .sub-card{
   height: 98%;
   width: auto;
-  /* background-color: blueviolet; */
   box-shadow: 10px 10px 20px black;
 }
 .image-div{
@@ -261,7 +261,6 @@ border-right: none;
 }
 .or-text-div{
   display: none !important;
-  /* margin-top: 5px; */
 }
 .google-btn-div{
   margin-top: 12px;
@@ -416,7 +415,21 @@ border-right: none;
 }
 
 }
-@media screen and (min-width: 425px) and (max-width: 768px) 
+@media screen and (min-width: 426px) and (max-width: 660px)
+{
+ .main-div{
+  width: 100%;
+  align-items: center;
+ }
+ .sub-card{
+  align-items: center;
+  justify-content: center;
+ }
+ .image-div{
+  /* display: none; */
+ }
+}
+@media screen and (min-width: 660px) and (max-width: 766px) 
 {
 .main-div{
 height: 100vh;
@@ -495,7 +508,15 @@ font-size: medium;
 }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px)
+@media screen and (min-width: 668px) and (max-width: 766px)
+{
+.main-div{
+  width: 100% !important;
+}
+
+}
+
+/* @media screen and (min-width: 768px) and (max-width: 1024px)
  {
 
   .main-div{
@@ -521,7 +542,26 @@ width: 100vw;
   }
 
 
-}
+} */
 @media screen and (min-width: 1024px) and (max-width: 1440px) {
 
 }
+
+@media screen and (min-width: 412px)
+{
+.main-div{
+/* align-items: center;
+justify-content: center; */
+}
+.sub-card{
+  padding: none;
+}
+.image-div{
+  display: none;
+}
+.login-div{
+  /* margin-top: 50px !important; */
+  padding: 10px 0px 10px 0px;
+}
+}
+
