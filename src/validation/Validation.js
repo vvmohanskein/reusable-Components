@@ -1,6 +1,7 @@
 import ValidateData from './Errorhandle'
 
 export const handleChange = (e,formData,setFormData,emailError, setEmailError,passwordError,setPasswordError,callBacks)=>{
+  console.log(e)
     const  { name, value } = e.target;
     const trimmedValue = value.trim()
     const errMsg = ValidateData.email(trimmedValue).require();
@@ -8,7 +9,6 @@ export const handleChange = (e,formData,setFormData,emailError, setEmailError,pa
       const edata = errMsg.required;
       console.log('edata',edata);
       setEmailError(edata);
-      console.log("errorrr HAndled");
     } else if (errMsg.message) {
       const edata = errMsg.message;
       // setFormError(edata)
@@ -27,15 +27,15 @@ export const handleChange = (e,formData,setFormData,emailError, setEmailError,pa
     }));
 
  
-    if(name === "password" || name === "cpassword"){
-      console.log('formdata',formData);
+    // if(name === "password" || name === "cpassword"){
+    //   console.log('formdata',formData);
       
-        ValidateData.cpasswordCheck(formData.password,formData.cpassword)
-        // console.log(formData.password, formData.cpassword)
-        // console.log(formData)
+    //     ValidateData.cpasswordCheck(formData.password,formData.cpassword)
+    //     // console.log(formData.password, formData.cpassword)
+    //     // console.log(formData)
       
-        // PasswordValidation(formData.password, formData.cpassword)
-      }
+    //     // PasswordValidation(formData.password, formData.cpassword)
+    //   }
 }
 //  export const PasswordValidation =(password, cpassword)=>{
 //   console.log(password,cpassword)

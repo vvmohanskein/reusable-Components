@@ -1,14 +1,170 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: "Poppins", sans-serif;
+
     box-sizing: border-box;
 }
 .main-div-signup{
 
     display: flex ;
-    flex-direction: row;
+    flex-direction: column;
     height: 100vh;
+    background-image:    linear-gradient(45deg, rgba(164,194,238,1) 36%, rgba(0,102,255,1) 100%);
+
     width: 100vw;
     justify-content: center;
     align-items: center !important ;
 }
+.sub-content{
+    display: flex;
+    flex-direction: row;
+border-radius: 10px;
+height: 98%;
+width: 80vw;
+align-items: center;
+justify-content: center;
+background-color: white;
+
+}
+.images-div{
+    height: 95%;
+    width: 30vw;
+    overflow: hidden;
+
+
+}
+.bg-img-signup {
+    height:31rem;
+    width: 25rem;
+    /* margin-left: 15px; */
+    border-radius: 5px;
+  }
+.contents-main-div{
+    height: 95%;
+    width: 42vw;
+}
+.contents-div{
+    height: 60%;
+    width: 100%;
+    margin-top: 2rem !important;
+ display: grid;
+ margin: 5px;
+ /* margin-left: 15px; */
+ grid-template-columns:auto auto ;
+ grid-column-gap: 2rem !important;
+ /* grid-row-gap: 1rem !important; */
+
+ /* background-color: blue; */
+
+
+}
+.grid-items{
+    /* height: 60%; */
+    width: 100%;
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+/* background-color: black; */
+    /* justify-content: space-around; */
+}
+.input-text-signup{
+    font-size: medium;
+    /* font-weight: bold; */
+    font-family: "Poppins", sans-serif;
+
+    
+
+}
+.inputbox-style{
+    margin-top: 5px !important;
+    height: 2rem;
+    width: 14rem;
+    outline: none ;
+    padding-left: 12px;
+  border-top: none ;
+  border-left: none;
+  border-right: none;
+    align-self: center;
+ 
+
+    /* background-color: gray;
+    border-radius: 5px; */
+  }
+  .inputbox-style ::-webkit-inner-spin-button, ::-webkit-outer-spin-button{
+    -webkit-appearance: none !important;
+  }
+  .inputbox-style :active ::-webkit-inner-spin-button, ::-webkit-outer-spin-button{
+    -webkit-appearance: none !important;
+  }
+
+
+
+  .password-div-signup {
+    align-self: center;
+    position: relative;
+  }
+  
+  .password-icon-signup {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+  }
+  .err-msg-span{
+  }
+
+  .btn-content{
+  }
+  .signup-heading{
+    text-align: center;
+  }
+  .btn-main-div{
+    display: flex;
+justify-content: space-around;
+    flex-direction: row;
+    margin-top: 10px;
+
+  }
+  .signup-btn {
+    background-color: rgba(0, 102, 255, 1);
+    padding: 8px 0px 8px 0px;
+    width: 200px;
+    font-size: large;
+    letter-spacing: 1px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  
+    border-radius: 5px;
+  }
+  .cancel-btn {
+    background-color:gray;
+    padding: 8px 0px 8px 0px;
+    width: 200px;
+    font-size: large;
+    letter-spacing: 1px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  
+    border-radius: 5px;
+  }
+  .or-text-div-main{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: center;
+  
+  }
+  .or-text-signup{
+    text-align: center;
+    margin-top: 5px;
+  }
+  .google-btn-signup {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    margin-top: 10px;
+justify-content: center;  
+  }
