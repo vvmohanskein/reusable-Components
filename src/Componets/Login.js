@@ -7,6 +7,8 @@ import app, { auth, provider } from "../validation/Auth";
 import { signInWithPopup } from "firebase/auth";
 import ValidateData from "../validation/Errorhandle";
 import { useNavigate } from "react-router-dom";
+import { LoginPostApi } from "./api/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 export function Login() {
   const navigate = useNavigate();
@@ -32,13 +34,7 @@ export function Login() {
     console.log("Call back Activiated", formData);
   };
   console.log(formData)
-  useEffect(() => {
-
-    console.log("Use Effect Working",formData.password,formData.cpassword);
-    // ValidateData.cpasswordCheck()
-    // PasswordValidation()
-    // console.log(formError);
-  }, [formData.cpassword,formData.password,ValidateData]);
+ 
 
   const handleSubmit = (e) => {
     // e.preventDefault()
@@ -81,11 +77,12 @@ export function Login() {
     //   setCPasswordError(edatas);
     // }
 
-    const cpasswordCheck = ValidateData.cpasswordCheck(formData.password,formData.cpassword)
-    if(cpasswordCheck){
-      console.log("password works in login",cpasswordCheck)
-    }
-    else {console.log("Passwords works in loginn innnnn correct")}
+if(formError.email === null && formError.password === null){
+  LoginPostApi(formData)
+}
+else{
+  toast.error("All fields are Mandatory")
+}
 
 
 
@@ -103,6 +100,7 @@ export function Login() {
 
   return (
     <div className="main-div">
+      <ToastContainer/>
       <div className="sub-card">
         <div className="image-div">
           <img src={bgimg} className="bg-img" />
@@ -229,7 +227,10 @@ export function Login() {
           <button onClick={() => handleSubmit()} className="login-btn">
             Login
           </button>
-          <button className="forgot-btn">Forgot Password?</button>
+          <button
+          className="forgot-btn"
+          onClick={()=>navigate('/forgotpassword')}
+          >Forgot Password?</button>
           <div className="or-text-div">
             <p className="line-text-left">
               <hr className="hr-line" />

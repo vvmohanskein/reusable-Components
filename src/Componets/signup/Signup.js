@@ -1,9 +1,14 @@
+import React from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./signup.css";
 import bgimgSignup from "../signup.jpg";
 import { useEffect, useState } from "react";
-import ValidateData from "../../validation/Errorhandle";
+import ValidateData, { allowsOnlyNumeric, spacePrevent } from "../../validation/Errorhandle";
 import app, { auth, provider } from "../../validation/Auth";
 import { signInWithPopup, validatePassword } from "firebase/auth";
+import { SignupPostApi } from '../api/Api';
 export default function Signup() {
   const initialState = {
     username: "",
@@ -25,12 +30,13 @@ export default function Signup() {
 
   useEffect(() => {
     ValidateData.cpasswordCheck();
-    console.log("use effect");
-  }, [formData.password,formData.cpassword,ValidateData]);
+  }, [formData.password, formData.cpassword, ValidateData]);
   const handleGoogleClick = (e) => {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then((data) => {
+        toast.success("Signined Successfully")
+
         console.log("datass", data.user.email);
       })
       .catch((error) => {
@@ -42,19 +48,16 @@ export default function Signup() {
     // console.log(e.target.value)
     const { name, value } = e.target;
     const trimmedValue = value.trim();
-
     if (name === "emailid") {
       const emailErr = ValidateData.email(trimmedValue).require();
       if (emailErr.required) {
         const edata = emailErr.required;
-        console.log("edata", edata);
-        setFormError((formError, edata) => ({
+        setFormError((formError) => ({
           ...formError,
           [name]: edata,
         }));
       } else if (emailErr.message) {
         const edata = emailErr.message;
-        console.log("else IF", edata);
 
         setFormError((formError) => ({
           ...formError,
@@ -70,7 +73,6 @@ export default function Signup() {
     }
     if (name === "username") {
       const nameErrMsg = ValidateData.usernameCheck(trimmedValue).nameCheck();
-      console.log(nameErrMsg);
       if (nameErrMsg.message) {
         const edata = nameErrMsg.message;
         setFormError((formError) => ({
@@ -97,14 +99,12 @@ export default function Signup() {
         .numberLimitCheck();
       if (errNumber.message) {
         const edata = errNumber.message;
-        console.log("dataaa")
         setFormError((formError) => ({
           ...formError,
           [name]: edata,
         }));
       } else if (errNumber.numberRegexCheck) {
         const edata = errNumber.numberRegexCheck;
-        console.log("qqqqqqqqqqqqqqqqqa")
 
         setFormError((formError) => ({
           ...formError,
@@ -112,7 +112,6 @@ export default function Signup() {
         }));
       } else if (errNumber.numberLimitCheck) {
         const edata = errNumber.numberLimitCheck;
-        console.log("QWERTY")
 
         setFormError((formError) => ({
           ...formError,
@@ -120,7 +119,6 @@ export default function Signup() {
         }));
       } else {
         const edata = null;
-        console.log("00000000000000")
 
         setFormError((formError) => ({
           ...formError,
@@ -130,13 +128,15 @@ export default function Signup() {
     }
 
     if (name === "dob") {
-      // const  errDob = ValidateData.dateValidate(trimmedValue).required().correctDateCheck()
-      console.log("123456", trimmedValue);
-      const maxDate = new Date("2000-12-31").toISOString().split("T")[0];
-      const todayDate = new Date().toISOString().split("T")[0];
-      console.log(todayDate);
-      if (isNaN(trimmedValue) && trimmedValue >= maxDate) {
-        const edata = "Invalid Date & exceeds maximum date";
+      const errDob = ValidateData.dateValidate(trimmedValue).correctDateCheck();
+      if (errDob.message) {
+        const edata = errDob.message;
+        setFormError((formError) => ({
+          ...formError,
+          [name]: edata,
+        }));
+      } else if (errDob.required) {
+        const edata = errDob.required;
         setFormError((formError) => ({
           ...formError,
           [name]: edata,
@@ -148,11 +148,29 @@ export default function Signup() {
           [name]: edata,
         }));
       }
+
+      // const maxDate = new Date("2000-12-31").toISOString().split("T")[0];
+      // const todayDate = new Date().toISOString().split("T")[0];
+      // console.log(todayDate);
+      // if (isNaN(trimmedValue) && trimmedValue >= maxDate) {
+      //   const edata = "Invalid Date & exceeds maximum date";
+      //   setFormError((formError) => ({
+      //     ...formError,
+      //     [name]: edata,
+      //   }));
+      // } else {
+      //   const edata = null;
+      //   setFormError((formError) => ({
+      //     ...formError,
+      //     [name]: edata,
+      //   }));
+      // }
     }
 
     if (name === "password") {
-      console.log("/////", trimmedValue);
-      const errPassword = ValidateData.password(trimmedValue).passwordRegex();
+      const errPassword = ValidateData.password(trimmedValue)
+        .passwordRegex()
+        .passwordLimit();
       if (errPassword.message) {
         // console.log("message",errPassword.message)
         const edata = errPassword.message;
@@ -168,6 +186,12 @@ export default function Signup() {
           ...formError,
           [name]: edata,
         }));
+      } else if (errPassword.passwordLimit) {
+        const edata = errPassword.passwordLimit;
+        setFormError((formError) => ({
+          ...formError,
+          [name]: edata,
+        }));
       } else {
         const edata = null;
         setFormError((formError) => ({
@@ -177,11 +201,7 @@ export default function Signup() {
       }
     }
 
-
     if (name === "cpassword") {
-     
-      console.log("9876543210", formData.password,trimmedValue);
-
       const errcpassword = ValidateData.cpasswordCheck(
         formData.password,
         trimmedValue
@@ -206,29 +226,217 @@ export default function Signup() {
         }));
       }
     }
-   
+
     setFormData((formData) => ({
       ...formData,
       [name]: trimmedValue,
     }));
-
-
-   
-
   };
 
-  console.log("formError", formError);
-  console.log("formData", formData);
+  const handleSubmitSignup = (e) => {
+    e.preventDefault();
+    const errMsg = ValidateData.email(formData.emailid).require();
+    if (errMsg.required) {
+      let errorData = errMsg.required;
+      setFormError((formError) => ({
+        ...formError,
+        emailid: errorData,
+      }));
+    } else if (errMsg.message) {
+      const errorData = errMsg.message;
+
+      setFormError((formError) => ({
+        ...formError,
+        emailid: errorData,
+      }));
+    } else {
+      const errorData = null;
+
+      setFormError((formError) => ({
+        ...formError,
+        emailid: errorData,
+      }));
+    }
+    const errusername = ValidateData.usernameCheck(
+      formData.username
+    ).nameCheck();
+    if (errusername.message) {
+      const errorname = errusername.message;
+      setFormError((formError) => ({
+        ...formError,
+        username: errorname,
+      }));
+    } else if (errusername.nameCheck) {
+      const errorname = errusername.nameCheck;
+      setFormError((formError) => ({
+        ...formError,
+        username: errorname,
+      }));
+    } else {
+      const errorname = null;
+      setFormError((formError) => ({
+        ...formError,
+        username: errorname,
+      }));
+    }
+    const errmobilenumber = ValidateData.mobileNumberCheck(
+      formData.mobilenumber
+    )
+      .numberRegexCheck()
+      .numberLimitCheck();
+    if (errmobilenumber.message) {
+      const errornumber = errmobilenumber.message;
+      setFormError((formError) => ({
+        ...formError,
+        mobilenumber: errornumber,
+      }));
+    } else if (errmobilenumber.numberRegexCheck) {
+      const errornumber = errmobilenumber.numberRegexCheck;
+      setFormError((formError) => ({
+        ...formError,
+        mobilenumber: errornumber,
+      }));
+    } else if (errmobilenumber.numberLimitCheck) {
+      const errornumber = errmobilenumber.numberLimitCheck;
+      setFormError((formError) => ({
+        ...formError,
+        mobilenumber: errornumber,
+      }));
+    } else {
+      const errornumber = null;
+      setFormError((formError) => ({
+        ...formError,
+        mobilenumber: errornumber,
+      }));
+    }
+
+    const errDateOn = ValidateData.dateValidate(
+      formData.dob
+    ).correctDateCheck();
+    if (errDateOn.message) {
+      const errornumber = errDateOn.message;
+      setFormError((formError) => ({
+        ...formError,
+        dob: errornumber,
+      }));
+    } else if (errDateOn.required) {
+      const errornumber = errDateOn.required;
+      setFormError((formError) => ({
+        ...formError,
+        dob: errornumber,
+      }));
+    } else {
+      const errornumber = null;
+      setFormError((formError) => ({
+        ...formError,
+        dob: errornumber,
+      }));
+    }
+
+    // const maxDate = new Date("2000-12-31").toISOString().split("T")[0];
+    // const minDate = new Date("1970-01-01").toISOString().split("T")[0];
+
+    // const todayDate = new Date().toISOString().split("T")[0];
+    // console.log(todayDate);
+    // if (isNaN(formData.dob) && formData.dob >= maxDate) {
+    //   const edata = "Invalid Date & exceeds maximum date";
+    //   setFormError((formError) => ({
+    //     ...formError,
+    //     dob: edata,
+    //   }));
+    // }
+    // else if (isNaN(formData.dob) && formData.dob < minDate){
+    //   const edata = "Invalid Date & below minmum date";
+    //   setFormError((formError) => ({
+    //     ...formError,
+    //     dob: edata,
+    //   }));
+    // }
+    // else {
+    //   const edata = null;
+    //   setFormError((formError) => ({
+    //     ...formError,
+    //     dob: edata,
+    //   }));
+    // }
+
+    const errpassword = ValidateData.password(formData.password)
+      .passwordRegex()
+      .passwordLimit();
+
+    if (errpassword.message) {
+      const errorpassword = errpassword.message;
+      setFormError((formError) => ({
+        ...formError,
+        password: errorpassword,
+      }));
+    } else if (errpassword.passwordRegex) {
+      const errorpassword = errpassword.passwordRegex;
+      setFormError((formError) => ({
+        ...formError,
+        password: errorpassword,
+      }));
+    } else if (errpassword.passwordLimit) {
+      const errorpassword = errpassword.passwordLimit;
+      setFormError((formError) => ({
+        ...formError,
+        password: errorpassword,
+      }));
+    } else {
+      const errorpassword = null;
+      setFormError((formError) => ({
+        ...formError,
+        password: errorpassword,
+      }));
+    }
+
+    const errcpassword = ValidateData.cpasswordCheck(
+      formData.password,
+      formData.cpassword
+    ).comparingPassword();
+    if (errcpassword.message) {
+      const errorcpassword = errcpassword.message;
+      setFormError((formError) => ({
+        ...formError,
+        cpassword: errorcpassword,
+      }));
+    } else if (errcpassword.comparingPassword) {
+      const errorcpassword = errcpassword.comparingPassword;
+      setFormError((formError) => ({
+        ...formError,
+        cpassword: errorcpassword,
+      }));
+    } else {
+      const errorcpassword = null;
+      setFormError((formError) => ({
+        ...formError,
+        cpassword: errorcpassword,
+      }));
+    }
+    const errDatas = formError
+    console.log(errDatas)
+
+   
+if(errDatas.username === null && errDatas.mobilenumber === null && errDatas.dob === null
+    && errDatas.password ===null && errDatas.cpassword === null && errDatas.emailid === null){
+
+      SignupPostApi(formData)
+    }
+else{
+  toast.error("All fields are mandetory")
+}
+  };
 
   return (
     <div className="main-div-signup">
+      <ToastContainer/>
       <div className="sub-content">
         <div className="images-div">
           <img className="bg-img-signup" src={bgimgSignup} />
         </div>
         <div className="contents-main-div">
           <div>
-            <h2 className="signup-heading">Signup</h2>
+            <h4 className="signup-heading">Create your account</h4>
           </div>
           <div className="contents-div">
             <div className="grid-items">
@@ -254,9 +462,10 @@ export default function Signup() {
             <div className="grid-items">
               <p className="input-text-signup">Mobile Number</p>
               <input
-                className="inputbox-style"
+                className="inputbox-style-number"
                 name="mobilenumber"
                 type="number"
+                onKeyPress={allowsOnlyNumeric}
                 value={formData.mobilenumber}
                 onChange={handleInputChange}
               />
@@ -297,6 +506,7 @@ export default function Signup() {
                 className="inputbox-style"
                 name="emailid"
                 type="email"
+                onKeyPress={spacePrevent}
                 value={formData.emailid}
                 onChange={handleInputChange}
               />
@@ -357,6 +567,7 @@ export default function Signup() {
                 )}
               </div>
             </div>
+
             <div className="grid-items">
               <p className="input-text-signup">Confirm Password</p>
 
@@ -405,21 +616,32 @@ export default function Signup() {
           </div>
           <div className="btn-content">
             <div className="btn-main-div">
-              <button className="cancel-btn">cancel</button>
-              <button className="signup-btn">Submit</button>
+              <button className="signup-btn" onClick={handleSubmitSignup}>
+                Submit
+              </button>
+
+              <button
+                className="cancel-btn"
+                onClick={() => {
+                  setFormData(initialState);
+                  setFormError(initialState);
+                }}
+              >
+                cancel
+              </button>
             </div>
 
             <div className="or-text-div-main">
               <p className="line-text-left">
                 <hr className="hr-line" />
               </p>
-              <p className="or-text">OR</p>
+              <p className="or-text-signup">OR</p>
               <p className="line-text-right">
                 <hr />
               </p>
             </div>
-            <div className="google-btn-signup">
-              <button onClick={handleGoogleClick} className="google-btn">
+            <div className="google-btn-signup-div">
+              <button onClick={handleGoogleClick} className="google-btn-signup">
                 <svg
                   className="google-img"
                   xmlns="http://www.w3.org/2000/svg"
@@ -445,7 +667,9 @@ export default function Signup() {
                   ></path>
                 </svg>
 
-                <p className="continue-google-text">Continue With Google</p>
+                <p className="continue-google-text-signup">
+                  Continue With Google
+                </p>
               </button>
             </div>
           </div>
