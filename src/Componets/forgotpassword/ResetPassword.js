@@ -1,10 +1,13 @@
-import { useLoaderData, useLocation, useParams } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./resetpassword.css";
 import { useState } from "react";
 import ValidateData from "../../validation/Errorhandle";
+import { ResetPasswordPostApi } from "../api/Api";
+import { toast } from "react-toastify";
 
 export function ResetPassword() {
   const parms = useParams();
+  const navigate = useNavigate()
   const location = useLocation();
   const initialState= {
     password :'',cpassword:''
@@ -86,6 +89,14 @@ const [formError,setFormError]= useState(initialState)
 
 
   }
+
+
+  const resetPayload={
+    emailid : location.email,
+    otp:location.otp,
+    password :formData.password,
+    cpassword : formData.cpassword
+  }
   const handleResetSubmit=(e)=>{
     e.preventDefault()
     const errpassword = ValidateData.password(formData.password)
@@ -144,6 +155,9 @@ const [formError,setFormError]= useState(initialState)
   const errDatas = formError
   if(errDatas.password === null && errDatas.cpassword === null){
     console.log("reset donee")
+    ResetPasswordPostApi(resetPayload)
+    toast.success("Password Changed Successfully")
+    navigate("/")
   }
   else{
     console.log("mande")
@@ -259,8 +273,9 @@ const [formError,setFormError]= useState(initialState)
                 className="reset-btn"
                 >Reset Password</button>
                 <button
+                onClick={()=>navigate("/")}
                 className="back-login-resetpassword"
-                >Back to login</button>
+                >Back to Login</button>
 
             </div>
           </div>

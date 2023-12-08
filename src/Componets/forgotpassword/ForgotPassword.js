@@ -46,6 +46,7 @@ const handleSubmitLink=(e)=>{
 console.log("submit")
 ForgotEmailPostapi(formData)
 setModelOpen(true)
+toast.success("OTP sent Succesfully")
 // navigate("/resetpassword",{state :formData.email})
   }
   else{
@@ -114,8 +115,12 @@ const handleOtpsent=(e)=>{
 
   if(otpError === null ){
     OtpVerificationPostApi(otpverifyPayload)
+    toast.success("OTP verified Successfully")
     navigate("/resetpassword", {state : otpverifyPayload})
   }
+  // else{
+  //   toast.error("Invalid OTP")
+  // }
 
 }
 
@@ -145,6 +150,13 @@ viewBox="0 0 512 512">
 <h4>Forgot Your Password ?</h4>
     <p className="sub-heading-text">No worries! Enter Your Email  and we will sent you a Reset</p>
     <div className="input-div">
+
+<input type="text"
+value={formData.mobilenumber}
+onKeyPress={allowsOnlyNumeric}
+onChange={handleInputChange}
+placeholder="Enter Your Mobile Number"
+className="inputbox-email"/>
 <input type="email"
  name="email"
  value={formData.email}
@@ -161,17 +173,20 @@ viewBox="0 0 512 512">
 onClick={handleSubmitLink}
 className="reset-link-btn">Send Reset Link</button>
 
-<button className="back-login">
+<button 
+onClick={()=>navigate("/")}
+className="back-login">
 <svg
  xmlns="http://www.w3.org/2000/svg"
  height="16" 
 width="14"
+fill="black"
  viewBox="0 0 448 512">
 
 <path
  d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
 </svg>
- <p className="back-text"> Back to login</p>
+ <p className="back-text"> Back to Login</p>
  </button>
 
 </div>

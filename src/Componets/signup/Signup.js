@@ -1,14 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./signup.css";
 import bgimgSignup from "../signup.jpg";
 import { useEffect, useState } from "react";
-import ValidateData, { allowsOnlyNumeric, spacePrevent } from "../../validation/Errorhandle";
+import ValidateData, {
+  allowsOnlyNumeric,
+  spacePrevent,
+} from "../../validation/Errorhandle";
 import app, { auth, provider } from "../../validation/Auth";
 import { signInWithPopup, validatePassword } from "firebase/auth";
-import { SignupPostApi } from '../api/Api';
+import { SignupPostApi } from "../api/Api";
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
   const initialState = {
     username: "",
@@ -23,6 +27,9 @@ export default function Signup() {
   const [maxDate, setMaxDate] = useState(new Date());
   const [showPassword, setShowPassword] = useState(false);
   const [showCpassword, setShowCpassword] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleMaxDate = () => {
     const dateMax = new Date().toISOString().split("T")[0];
     setMaxDate(dateMax);
@@ -35,7 +42,7 @@ export default function Signup() {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then((data) => {
-        toast.success("Signined Successfully")
+        toast.success("Signined Successfully");
 
         console.log("datass", data.user.email);
       })
@@ -413,23 +420,27 @@ export default function Signup() {
         cpassword: errorcpassword,
       }));
     }
-    const errDatas = formError
-    console.log(errDatas)
+    const errDatas = formError;
+    console.log(errDatas);
 
-   
-if(errDatas.username === null && errDatas.mobilenumber === null && errDatas.dob === null
-    && errDatas.password ===null && errDatas.cpassword === null && errDatas.emailid === null){
-
-      SignupPostApi(formData)
+    if (
+      errDatas.username === null &&
+      errDatas.mobilenumber === null &&
+      errDatas.dob === null &&
+      errDatas.password === null &&
+      errDatas.cpassword === null &&
+      errDatas.emailid === null
+    ) {
+      toast.success("SignIn Successfull");
+      SignupPostApi(formData);
+    } else {
+      toast.error("All fields are mandatory");
     }
-else{
-  toast.error("All fields are mandetory")
-}
   };
 
   return (
     <div className="main-div-signup">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="sub-content">
         <div className="images-div">
           <img className="bg-img-signup" src={bgimgSignup} />
@@ -464,7 +475,9 @@ else{
               <input
                 className="inputbox-style-number"
                 name="mobilenumber"
-                type="number"
+                type="text"
+                pattern="\d*"
+                maxlength="10"
                 onKeyPress={allowsOnlyNumeric}
                 value={formData.mobilenumber}
                 onChange={handleInputChange}
@@ -640,6 +653,7 @@ else{
                 <hr />
               </p>
             </div>
+
             <div className="google-btn-signup-div">
               <button onClick={handleGoogleClick} className="google-btn-signup">
                 <svg
@@ -671,6 +685,15 @@ else{
                   Continue With Google
                 </p>
               </button>
+              <div className="already-div">
+                <p className="already-content">Already have an account?</p>
+                <button
+                  onClick={() => navigate("/")}
+                  className="login-btn-signup"
+                >
+                  login
+                </button>
+              </div>
             </div>
           </div>
         </div>

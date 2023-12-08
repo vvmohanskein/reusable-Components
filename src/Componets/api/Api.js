@@ -18,6 +18,10 @@ export const OtpVerificationPostApi=(otpverifyPayload)=>{
     console.log(otpverifyPayload)
 }
 
+export const ResetPasswordPostApi=(resetPayload)=>{
+    console.log(resetPayload)
+}
+
 
 
 

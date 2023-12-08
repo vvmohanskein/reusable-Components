@@ -1,5 +1,5 @@
 const email = (v) => {
-  const emailRegex = /^[^\s$&*!#^@]+@[^\s@]+\.([^\s@]{2,})+$/;
+  const emailRegex =  /^[^\s$&*!#^@]+@[^\s@]+\.([^\s@]{2,3})+$/ ;
   const regexPattern = /^\s*\w+(\s?$|\s{2,}\w+)+/;
 
   if (!emailRegex.test(v)) {
@@ -59,7 +59,7 @@ const numberLimitControl = (v) => {
   //     console.log('type above 3 else');
   //   }
 
-  if (v.length >= 3 && v.length <= 9) {
+  if (v.length <= 9) {
     return "Minimum 10-digit  requried";
   } else if (v.length > 10) {
     return "Mobile number limit: 10 digits";
@@ -96,7 +96,7 @@ const dateCompare = (v) => {
     const edata = "Invalid Date & exceeds maximum date";
     return edata;
   } else if (isNaN(v) && v < minDate) {
-    const edata = "Invalid Date & below minmum date";
+    const edata = "Invalid Date & below minimum date";
     return edata;
   } else {
     const edata = null;

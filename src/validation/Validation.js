@@ -4,23 +4,41 @@ export const handleChange = (e,formData,setFormData,emailError, setEmailError,pa
   console.log(e)
     const  { name, value } = e.target;
     const trimmedValue = value.trim()
-    const errMsg = ValidateData.email(trimmedValue).require();
-    if (errMsg.required) {
-      const edata = errMsg.required;
-      console.log('edata',edata);
-      setEmailError(edata);
-    } else if (errMsg.message) {
-      const edata = errMsg.message;
-      // setFormError(edata)
-      setEmailError(edata);
-    }else {
-      const edata = null;
-      setEmailError(edata);
-    }
-    // setPasswordError(ValidateData.required ? ValidateData.required :'')
-    
 
-    console.log('errMsg',errMsg);
+    if(name === "email"){
+      const errMsg = ValidateData.email(trimmedValue).require();
+      if (errMsg.required) {
+        const edata = errMsg.required;
+        console.log('edata',edata);
+        setEmailError(edata);
+      } else if (errMsg.message) {
+  
+        const edata = errMsg.message;
+        console.log('edata',edata);
+  
+        // setFormError(edata)
+        setEmailError(edata);
+      }else {
+        const edata = null;
+        setEmailError(edata);
+      }
+    }
+
+  
+    // setPasswordError(ValidateData.required ? ValidateData.required :'')
+if(name === "password"){
+  const errPassword = ValidateData.password(trimmedValue)
+
+  if(errPassword){
+    const edata = errPassword.message;
+    setPasswordError(edata)
+  }
+  else{
+    const edata = null;
+    setPasswordError(edata)
+  }
+}    
+
     setFormData((formData) => ({
       ...formData,
       [name]: trimmedValue,

@@ -45,7 +45,6 @@
   height: 31rem;
   font-size: larger;
   flex-direction: column;
-  margin-top: 2rem;
   margin-left: 0px;
   align-items: center;
 
@@ -112,6 +111,9 @@ margin-right:220px;
   flex-direction: row;
   margin-top: 1rem;
 
+}
+.or-text{
+  font-size: small;
 }
 .line-text-left{
   margin-left: 2px;
@@ -532,17 +534,16 @@ width: 100vw;
   }
   .sub-card{
     height: 90%;
-    width: 52rem;
+    width: 93%;
 
   }
   .image-div{
-    height: 35rem;
-    margin-top: 15px;
     margin-left: 15px;
-    width: 28rem;
+    width: 50%;
+    height: 90%;
   }
   .bg-img{
-
+    height: 100%;
   }
   .login-div{
     
@@ -550,9 +551,105 @@ width: 100vw;
 
 
 }
-@media only screen and (min-width: 1024px) and (max-width: 1440px) {
-
+/* @media only screen and (min-width: 1025px) and (max-width: 1440px) {
+.main-div{
+  height: 100vh;
+  width: 100vw;
 }
+.sub-card{
+height: 95%;
+width: 95%;
+}
+.image-div{
+  height: 95%;
+  width: 50%;
+}
+.bg-img{
+  height: 95%;
+  width: 100%;
+}
+  .login-div{
+    height: 95%;
+    width: 50%;
+
+  }
+  .input-style {
+    margin-top: 5px !important;
+    height: 4rem;
+    width: 25rem;
+    font-size: larger;
+    outline: none ;
+    padding-left: 12px;
+  border-top: none ;
+  border-left: none;
+  border-right: none;
+    align-self: center;
+   
+  }
+  .input-text{
+    font-size: larger;
+    margin-right: 300px;
+  }
+  .login-text{
+    font-size: larger;
+    margin-top: 0px ;
+  }
+  span{
+    font-size: larger;
+  }
+  .password-icon{
+    right: 0rem;
+    top: 2.5rem;
+  }
+  .login-btn{
+    font-size: larger;
+    width: 410px;
+  }
+  .or-text{
+    font-size: larger;
+  }
+  .line-text-left{
+    margin-left: 2px;
+    width: 12rem;
+    margin-right: 2px;
+  padding-top: 7px;
+    
+  }
+  .line-text-right{
+    width: 12rem;
+    margin-left: 2px;
+  padding-top: 7px;
+    
+  
+  }
+  .forgot-btn{
+    width: 14rem;
+    font-size: larger
+  }
+  .google-btn {
+    cursor: pointer;
+  background-color: gray;
+  width: 410px;
+  padding: 15px 5px 5px 15px;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  border: none;
+
+  border-radius: 5px;
+}
+.continue-google-text{
+  font-size: larger !important;
+}
+.dont-have-text{
+  font-size: larger;
+}
+.signup-text{
+  font-size: larger;
+}
+} */
 
 /* @media only screen and (min-width: 412px)
 {

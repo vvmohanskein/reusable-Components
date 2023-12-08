@@ -2,7 +2,11 @@ import "./login.css";
 import googleimg from "./bgimg1.svg";
 import { useEffect, useState } from "react";
 import bgimg from "./bgimg.jpg";
-import { PasswordValidation, handleChange, handleSubmit } from "../validation/Validation";
+import {
+  PasswordValidation,
+  handleChange,
+  handleSubmit,
+} from "../validation/Validation";
 import app, { auth, provider } from "../validation/Auth";
 import { signInWithPopup } from "firebase/auth";
 import ValidateData from "../validation/Errorhandle";
@@ -12,34 +16,42 @@ import { ToastContainer, toast } from "react-toastify";
 
 export function Login() {
   const navigate = useNavigate();
+
+
   const initialState = {
     email: "",
     password: "",
-    cpassword:''
+    cpassword: "",
   };
 
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(initialState);
   const [emailError, setEmailError] = useState();
   const [passwordError, setPasswordError] = useState();
-  const [cpasswordError, setCPasswordError] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const callBacks = (
-    formData,
-    emailError,
-    passwordError,
-    formError,
-    setFormError
-  ) => {
-    console.log("Call back Activiated", formData);
-  };
-  console.log(formData)
- 
+  // const callBacks = (
+  //   formData,
+  //   emailError,
+  //   passwordError,
+  //   formError,
+  //   setFormError
+  // ) => {
+  //   console.log("Call back Activiated", formData);
+  // };
+  console.log(formData);
 
   const handleSubmit = (e) => {
-    // e.preventDefault()
+    //  e.preventDefault()
+
+
+    // handling  the error dynamically  through  validateData's object's key  email through arguments
+    
     const errMsg = ValidateData.email(formData.email).require();
     console.log("err mesg", errMsg);
+
+    // getting error message in errMsg variable 
+    //checking the error based on condition
+
     if (errMsg.required) {
       const edata = errMsg.required;
       setEmailError(edata);
@@ -53,7 +65,7 @@ export function Login() {
       setEmailError(edata);
     }
     const errPassword = ValidateData.required(formData.password).regex();
-    
+
     if (errPassword.required) {
       const edatas = errPassword.required;
       setPasswordError(edatas);
@@ -65,27 +77,13 @@ export function Login() {
       setPasswordError(edatas);
     }
 
-    // const errcPassword = ValidateData.required(formData.cpassword).regex();
-    // if (errcPassword.required) {
-    //   const edatas = errcPassword.required;
-    //   setCPasswordError(edatas);
-    // } else if (errcPassword.message) {
-    //   const errData = errcPassword.message;
-    //   setCPasswordError(errData);
-    // } else {
-    //   const edatas = null;
-    //   setCPasswordError(edatas);
-    // }
 
-if(formError.email === null && formError.password === null){
-  LoginPostApi(formData)
-}
-else{
-  toast.error("All fields are Mandatory")
-}
-
-
-
+    if (emailError === null && passwordError === null) {
+      toast.success("Logged In Successfully");
+      LoginPostApi(formData);
+    } else {
+      toast.error("All fields are Mandatory");
+    }
   };
   const handleGoogleClick = (e) => {
     e.preventDefault();
@@ -100,7 +98,7 @@ else{
 
   return (
     <div className="main-div">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="sub-card">
         <div className="image-div">
           <img src={bgimg} className="bg-img" />
@@ -108,7 +106,7 @@ else{
         <div className="login-div">
           {/* <h3 className="login-text">Welcome Back!</h3> */}
           <h3 className="login-text">Login</h3>
-         
+
           <p className="input-text">Email Id</p>
           <div className="password-div">
             <input
@@ -197,40 +195,16 @@ else{
             ""
           )}
 
-
-
-{/* <input
-              placeholder="Enter  confirm Password"
-              name="cpassword"
-              value={formData.cpassword}
-              onChange={(e) =>
-                handleChange(
-                  e,
-                  formData,
-                  setFormData,
-                  emailError,
-                  setEmailError,
-                  passwordError,
-                  setPasswordError
-                )
-              }
-              type={showPassword ? "text" : "password"}
-              className="input-style"
-            />
-              {!formData.cpassword && cpasswordError ? (
-            <span>{cpasswordError}</span>
-          ) : formData.cpassword && cpasswordError ? (
-            <span>{cpasswordError}</span>
-          ) : (
-            ""
-          )} */}
+     
           <button onClick={() => handleSubmit()} className="login-btn">
             Login
           </button>
           <button
-          className="forgot-btn"
-          onClick={()=>navigate('/forgotpassword')}
-          >Forgot Password?</button>
+            className="forgot-btn"
+            onClick={() => navigate("/forgotpassword")}
+          >
+            Forgot Password?
+          </button>
           <div className="or-text-div">
             <p className="line-text-left">
               <hr className="hr-line" />
