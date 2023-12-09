@@ -3,7 +3,7 @@ const email = (v) => {
   const regexPattern = /^\s*\w+(\s?$|\s{2,}\w+)+/;
 
   if (!emailRegex.test(v)) {
-      return "Invalid Email";
+      return "InValid Email";
     
   }
   
@@ -60,9 +60,9 @@ const numberLimitControl = (v) => {
   //   }
 
   if (v.length <= 9) {
-    return "Minimum 10-digit  requried";
+    return "Minimum 10-digit  Requried";
   } else if (v.length > 10) {
-    return "Mobile number limit: 10 digits";
+    return "Mobile Number limit: 10 digits";
   } else {
     return null;
   }
@@ -108,14 +108,14 @@ const passwordRegexCheck = (v) => {
   const passwordRegex =
     /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^@$!%*#?&]*[@$!%*#?&])[A-Za-z\d@$!%*#?&]*$/;
   if (!passwordRegex.test(v)) {
-    return "Password needs UpperCase,Lower Case, number and symbol.";
+    return "Password Needs  a UpperCase, a Lower Case, a Number and a Symbol.";
   } else {
     return null;
   }
 };
 const passwordLimitCheck = (v) => {
-  if (v.length >= 6 && v.length < 8) {
-    return "Minimum 8 character  requried";
+  if (v.length >= 4 && v.length < 8) {
+    return "Minimum 8 Character  Requried";
   }
 //    else if (v.length > 12) {
 //     return "password should be below 12 Character";
@@ -129,7 +129,7 @@ const comparePassword = (p, cp) => {
   if (p !== "" && cp != "" && p == cp) {
     return null;
   } else {
-    return "password & confirm Password should be same";
+    return "Password & Confirm Password Should be Same";
   }
 };
 

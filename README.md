@@ -1,6 +1,78 @@
+The Reusable  Components project  is a dynamic application built  with HTML,CSS and React Js .Here we have created the common components like Login Screen,Signup Screen and Forgot Password Screens  and their Dynamic Functionalities   that can be used for Further Projects.
+
+Components Included :
+
+Login Screen,
+Signup Screen,
+Forgot Password Screen,
+Reset Password Screen,
+Error Handling Component,
+API component.
+
+Login Screen :
+	        In the Login Screen we have  fields like Email id , password ,Login Button, Forgot Password  , Google Login,  and a Signup Button.
+
+Validating  Input Fields :
+	 	In the email id,password  input , the onChange Function is Carried out in an separate component called Validation, the values were sent to that component as an arguments from that  component  we validate the values  through an separate  Error Handling Component  we pass the values as the parameter and there we check the values based on the conditions required. 
+
+	After that,in the handle Change Function we set the Errors  in a state  if there is error  or else  null value will be set in the error State and we can show the error  in the respected field.
+
+	And we also validate the input fields in on-submit events  with the same Functions in the error handling Component and set the errors in the respective State.
+
+	Hence, we have validated the  fields in the different  scenarios that Error handling Component  will be managed only for the error message to be shown.
+
+	Then, Same as error handling we have separate component for api calls  by using the functions.
 
 
-# Getting Started with Create React App
+Signup Screen :
+
+		In Signup we have multiple inputs  and we are validating  in the onChange event and  we send the  values to the error handling component and we validate based on the conditions there and those functions will return the values  and put those errors in a state  and throw the error message where it is required.
+
+		In the On-submit event   we validate with the same functions  and set the error in the state.
+		After that, we have a separate api component   that has multiple functions. Those functions receive the  values as the parameters and proceed with the api calls and return the promises.
+
+Forgot Password :
+		 In this Component  we have an mail id input field and that input will be validated in the onChange and Onsubmit events from the error handling component.
+
+		Then,after that we will proceed to the  Otp input field and here we validate by the function from the error handle component for empty validation .
+
+Reset Password Screen  :
+			In this component we will reset the password  by two inputs as password and confirm  password  we  validate that based function from the error handle component.
+
+Error Handle Component :
+			This component has multiple functions that include the conditions  that are to be validated based on the  input fields.
+
+Api Component: 
+		 This component  will have  multiple functions that includes the api’s based the events it will be triggered.  
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- # Getting Started with Create React App -->
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
