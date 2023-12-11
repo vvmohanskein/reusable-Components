@@ -151,12 +151,12 @@ viewBox="0 0 512 512">
     <p className="sub-heading-text">No worries! Enter Your Email  and we will sent you a Reset</p>
     <div className="input-div">
 
-<input type="text"
+{/* <input type="text"
 value={formData.mobilenumber}
 onKeyPress={allowsOnlyNumeric}
 onChange={handleInputChange}
 placeholder="Enter Your Mobile Number"
-className="inputbox-email"/>
+className="inputbox-email"/> */}
 <input type="email"
  name="email"
  value={formData.email}

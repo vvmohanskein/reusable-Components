@@ -17,53 +17,56 @@ import { ToastContainer, toast } from "react-toastify";
 export function Login() {
   const navigate = useNavigate();
 
-
   const initialState = {
     email: "",
     password: "",
     cpassword: "",
   };
 
+
+
+  // state that stores the  values of input fields
+
   const [formData, setFormData] = useState(initialState);
+  //state that stores the error messages from the function
   const [formError, setFormError] = useState(initialState);
   const [emailError, setEmailError] = useState();
   const [passwordError, setPasswordError] = useState();
+
+
+  //Eye icon state that stores state condition
   const [showPassword, setShowPassword] = useState(false);
-  // const callBacks = (
-  //   formData,
-  //   emailError,
-  //   passwordError,
-  //   formError,
-  //   setFormError
-  // ) => {
-  //   console.log("Call back Activiated", formData);
-  // };
-  console.log(formData);
+ 
 
   const handleSubmit = (e) => {
-    //  e.preventDefault()
-
 
     // handling  the error dynamically  through  validateData's object's key  email through arguments
-    
+
     const errMsg = ValidateData.email(formData.email).require();
     console.log("err mesg", errMsg);
 
-    // getting error message in errMsg variable 
-    //checking the error based on condition
+    // getting error message in errMsg variable
+    //checking the error based on condition from the return function from Error handle component
 
     if (errMsg.required) {
       const edata = errMsg.required;
+      // setting error message in  a state
       setEmailError(edata);
       console.log("errorrr HAndled");
     } else if (errMsg.message) {
       const edata = errMsg.message;
-      // setFormError(edata)
+      // setting error message in  a state
+
       setEmailError(edata);
     } else {
       const edata = null;
+      // setting error message in  a state
+
       setEmailError(edata);
     }
+
+    // handling  the error dynamically  through  validateData's object's key  email through arguments
+
     const errPassword = ValidateData.required(formData.password).regex();
 
     if (errPassword.required) {
@@ -77,14 +80,20 @@ export function Login() {
       setPasswordError(edatas);
     }
 
+    // checking for error message for null  to proceed further api calls
 
     if (emailError === null && passwordError === null) {
       toast.success("Logged In Successfully");
+
+      // doing the api call in the separate page 
       LoginPostApi(formData);
     } else {
       toast.error("All fields are Mandatory");
     }
   };
+
+  // login  with google account  by continue with google button event function
+
   const handleGoogleClick = (e) => {
     e.preventDefault();
     signInWithPopup(auth, provider)
@@ -125,15 +134,14 @@ export function Login() {
               }
               className="input-style"
             />
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="grey"
-              className="password-icon"
-              height="1em"
-              viewBox="0 0 512 512"
-            >
-              <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
-            </svg> */}
+
+            {/* Login Through Mobile Number  */}
+            {/* <input type="text"
+value={formData.mobilenumber}
+onKeyPress={allowsOnlyNumeric}
+onChange={handleInputChange}
+placeholder="Enter Your Mobile Number"
+className="inputbox-email"/> */}
           </div>
 
           {!formData.email && emailError ? (
@@ -195,7 +203,6 @@ export function Login() {
             ""
           )}
 
-     
           <button onClick={() => handleSubmit()} className="login-btn">
             Login
           </button>

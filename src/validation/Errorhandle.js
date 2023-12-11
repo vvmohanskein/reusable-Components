@@ -1,3 +1,6 @@
+
+
+// checking the email regex pattern
 const email = (v) => {
   const emailRegex =  /^[^\s$&*!#^@]+@[^\s@]+\.([^\s@]{2,3})+$/ ;
   const regexPattern = /^\s*\w+(\s?$|\s{2,}\w+)+/;
@@ -9,6 +12,10 @@ const email = (v) => {
   
   return null;
 };
+
+
+
+// checking  the empty field
 const required = (v) => {
   if (v !== undefined || v === null) {
     if (v.length === 0) {
@@ -30,6 +37,9 @@ const is_errorCheck = (v) => {
   return null;
 };
 
+
+
+// checking the name by regex pattern
 const nameCheckRegex = (v) => {
   const nameRegex = /^[A-Za-z' \-.]+$/;
   if (!nameRegex.test(v)) {
@@ -37,6 +47,8 @@ const nameCheckRegex = (v) => {
   }
   return null;
 };
+
+// preventing the alpha typing in the number field
 const numberRegex = (v) => {
   const numberRegexPattern = [["-", "+", "e", ".", "E"]];
 
@@ -47,6 +59,9 @@ const numberRegex = (v) => {
   }
 };
 
+
+
+// input length check for mobile number input field
 const numberLimitControl = (v) => {
   // if(v.length > 3 ){
   //     if(v.length <= 10){
@@ -78,8 +93,9 @@ const spaceRegex = (v) => {
   return null;
 };
 
+
+// checking the empty date field 
 const requiredDate = (v) => {
-  // console.log("12",v)
   if (v === "" || v == "" || v === null || v === undefined) {
     return "Requried";
   } else {
@@ -87,6 +103,9 @@ const requiredDate = (v) => {
   }
 };
 
+
+
+// comparing the date value from the input and  checking according  below condition
 const dateCompare = (v) => {
   const maxDate = new Date("2000-12-31").toISOString().split("T")[0];
   const minDate = new Date("1970-01-01").toISOString().split("T")[0];
@@ -103,6 +122,9 @@ const dateCompare = (v) => {
     return edata;
   }
 };
+
+
+// password regex check  based on below regex pattern
 const passwordRegexCheck = (v) => {
   //const passwordRegex = /^(?=.*[!@#$%^&*()_+{}[\]:;<>,.?/~\\-])(?=.*[A-Z])(?=.*\d).{8,}$/
   const passwordRegex =
@@ -113,6 +135,8 @@ const passwordRegexCheck = (v) => {
     return null;
   }
 };
+
+//checking the length of the password based on below condition
 const passwordLimitCheck = (v) => {
   if (v.length >= 4 && v.length < 8) {
     return "Minimum 8 Character  Requried";
@@ -125,6 +149,9 @@ const passwordLimitCheck = (v) => {
   }
 };
 
+
+
+// comparing the password and confirm password  and checking the values for the same
 const comparePassword = (p, cp) => {
   if (p !== "" && cp != "" && p == cp) {
     return null;
@@ -132,6 +159,9 @@ const comparePassword = (p, cp) => {
     return "Password & Confirm Password Should be Same";
   }
 };
+
+
+//  checking the length on otp field
 
 const otpLengthValidate=(v)=>{
 
@@ -143,6 +173,8 @@ const otpLengthValidate=(v)=>{
         return null
     }
 }
+
+// encloses multiple functions
 const ValidateData = {
   email: (v) => {
     const emailValidate = email(v);
